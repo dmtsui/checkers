@@ -19,11 +19,13 @@ class Piece
 			@location.neighbors.include?(@board.spaces[pos[0]][pos[1]])
 			#debugger
 			self.location = @board.spaces[pos[0]][pos[1]]
+			king?(pos)
 		elsif valid_move?(pos)
 			#debugger
 			jump_space = get_jump_space(pos)
 			capture_piece(jump_space)
 			self.location = @board.spaces[pos[0]][pos[1]]
+			king?(pos)
 		else
 				puts "Not a valid move!"
 		end
@@ -53,7 +55,7 @@ class Piece
 	end
 
 	def capture_piece(jump_space)
-		piece_set = (@color == :red) ? @board.red_pieces : @board.black_pieces
+		piece_set = (jump_space.piece.color == :red) ? @board.red_pieces : @board.black_pieces
 			piece_set.delete(jump_space.piece)
 			jump_space.piece = nil
 	end
@@ -69,6 +71,13 @@ class Piece
 		#debugger
 		jump_space = get_jump_space(pos)
 		jump_space and right_direction?(pos)
+	end
+
+	def king?(pos)
+		if @color == :black ? pos[0] == 7: pos[0] == 0
+			@king = true
+			@display = " \u265A "
+		end
 	end
 
 	def right_direction?(pos)

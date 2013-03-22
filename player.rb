@@ -12,7 +12,12 @@ class Player
     move_to_location = input_to_coordinates(gets.chomp.downcase.split(//))
     return piece_location, move_to_location
   end
-  
+
+
+  def available_moves?
+
+  end
+
   def input_to_coordinates(input)
     col = input[0].ord - 97
     row = input[1].to_i - 1

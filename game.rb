@@ -15,22 +15,25 @@ class Checker
 		#debugger
 		draw_screen
 		while true
-			play_cycle
+			play_turn(@black_player)
+			play_turn(@red_player)
 		end
 		#@board.red_pieces.each {|piece| p piece.location }
 		#@board.black_pieces.each {|piece| p piece.location}
 
 	end
 
-	def play_cycle
-	start, move_to = @black_player.input
+	def play_turn(player)
+	start, move_to = player.input
 	#debugger
 	@board.spaces[start[0]][start[1]].piece.move(move_to)
 	#debugger
 	draw_screen
-	# start, move_to = @red_player.input
-	# @board.spaces[start[0]][start[1]].piece.move(move_to)
-	# @board.draw_screen
+	puts "Win!" if win?
+	end
+
+	def win?
+		@board.red_pieces.count == 0 or @board.black_pieces.count == 0
 	end
 
 	def draw_screen
