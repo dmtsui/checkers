@@ -7,29 +7,25 @@ class Checker
 
 	def initialize
 		@board = Board.new
-		@red_player = Player.new(:red, @board)
-		@black_player = Player.new(:black, @board)
+		@red_player = Player.new(:red, @board.red_pieces, @board)
+		@black_player = Player.new(:black, @board.red_pieces, @board)
 	end
 
 	def play
-		#debugger
 		draw_screen
 		while true
 			play_turn(@black_player)
 			play_turn(@red_player)
 		end
-		#@board.red_pieces.each {|piece| p piece.location }
-		#@board.black_pieces.each {|piece| p piece.location}
 
 	end
 
 	def play_turn(player)
 	start, move_to = player.input
-	#debugger
 	@board.spaces[start[0]][start[1]].piece.move(move_to)
-	#debugger
 	draw_screen
 	puts "Win!" if win?
+	player.available_moves?
 	end
 
 	def win?
@@ -42,7 +38,6 @@ class Checker
 	8.times do |row|
 	  temp_row = []
 	  8.times do |col|
-	  	#debugger
 	    space_render = @board.spaces[row][col].piece ? @board.spaces[row][col].piece.display : " . "
 	    temp_row << space_render.colorize( :background => @board.spaces[row][col].color)
 	  end
@@ -53,7 +48,8 @@ class Checker
 	  puts "#{8-index}" + row.join("") + "#{8-index}"
 	end
 	puts "  " + ("A".."H").to_a.join("  ")
-	puts "red_pieces : #{@board.red_pieces.count} black_pieces : #{@board.black_pieces.count}"
+	puts "red_can_move? #{@red_player.available_moves?} black_can_move? : #{@black_player.available_moves?}"
+	puts "current move have available moves? #{@board.can_move}"
 	end
 
 end

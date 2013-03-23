@@ -5,14 +5,12 @@ class SpaceNode
 	def initialize(color, position, board)
 		@neighbors = []
 		@position = position
-		#debugger
 		@color = color
 		@board = board
 		
 	end
 
 	def add_neighbors
-		#debugger
 		pr, pc = @position 
 		diagonals = [[1,-1],[1,1],[-1,-1],[-1,1]]
 		diagonals.select do |r,c| 

@@ -1,7 +1,8 @@
 class Player
-  attr_accessor :color, :board
-  def initialize(color, board)
+  attr_accessor :color, :board, :player_pieces
+  def initialize(color, player_pieces, board)
     @color = color
+    @player_pieces = player_pieces
   end
 
   def input
@@ -15,7 +16,10 @@ class Player
 
 
   def available_moves?
-
+    @player_pieces.each do |piece|
+      return true if piece.can_move?
+    end
+    return false
   end
 
   def input_to_coordinates(input)
