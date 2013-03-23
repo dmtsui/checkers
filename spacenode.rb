@@ -1,13 +1,12 @@
 require 'debugger'
 class SpaceNode
-	attr_accessor :piece, :color, :neighbors, :position, :board
+	attr_accessor :piece, :color, :neighbors, :position, :board, :jump_neighbors
 
 	def initialize(color, position, board)
 		@neighbors = []
 		@position = position
 		@color = color
-		@board = board
-		
+		@board = board	
 	end
 
 	def add_neighbors

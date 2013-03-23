@@ -20,10 +20,9 @@ class Piece
 			if space_open?(pos) and right_direction?(pos) and 
 				@location.neighbors.include?(@board.spaces[pos[0]][pos[1]])
 				return true
-			elsif valid_move?(pos)
-				return true
-			else
-				false
+			end
+			neighbor.neighbors.each do |jump_space|
+				return true if can_jump?(jump_space.position)	
 			end
 		end
 		return false
